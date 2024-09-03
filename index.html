@@ -1,91 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>sukunagojo</title>
-    <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.lolcat.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
-<!--     <link rel="stylesheet" href="style.css"/> -->
- <style>
-    .terminal {
-    font-family: monospace;
-    font-size: 18px;
-    color: #fff;
-    background-color: #000;
-    padding: 20px;
-    /* border: 1px solid #333; */
-
-  }
-  .terminal-container {
-    width: 60%;
-    max-width: 800px;
-    border: 2px solid #fff;
-    padding: 0px;
-    background-color: #000;
-}
-  .prompt {
-    color: #ff0000;
-  }
-  
-  .output {
-    color: #ffffff;
-  }
-  html, body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #000;
-  }
- </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sukunagojo</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.lolcat.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            font-family: monospace;
+        }
+        .terminal-container {
+            width: 90%;
+            max-width: 800px;
+            height: 80%;
+            max-height: 600px;
+            border: 2px solid #fff;
+            background-color: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        #terminal {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        @media (max-width: 768px) {
+            .terminal-container {
+                height: 70%;
+                max-height: 400px;
+            }
+            #terminal {
+                padding: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .terminal-container {
+                height: 60%;
+                max-height: 300px;
+            }
+            #terminal {
+                padding: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="terminal-container">
-        <div id="terminal"></div>
-    </div>
-    <script>
-        $('#terminal').terminal({
-            hello: function(what) {
-                this.echo('Hello, ' + what + '. Welcome to sukunagojos Portfolio.');
-            },
-            help: function() {
-                this.echo('Available commands:');
-                this.echo('  - help: Shows this help message.');
-                this.echo('  - whoami: About me');
-                this.echo('  - youtube: My Youtube Channel');
-                this.echo('  - discord: My Discord Server');
-                this.echo('  - x: My Twitter account');
-                this.echo('  - github: Github');
-                this.echo('  - coffee: Buy me a Coffee');
-            },
-            whoami: function() {
-                this.echo('Hi, I am sukunagojos aka shreyam. I am a #EthicalHacker, struggling daily to become a good hacker. That is all about me!');
-            },
-            youtube: function() {
-                this.echo('sukunagojos Youtube Channel');
-                window.open('https://youtube.com/@shreyamarya3452', '_blank');
-            },
-            discord: function() {
-                this.echo('sukunagojos Discord Server');
-                window.open('https://discord.com/invite/WjRK9SKk', '_blank');
-            },          
-            x: function() {
-                this.echo('sukunagojos X account');
-                window.open('https://x.com/Shreyam35710703', '_blank');
-            },
-            github: function() {
-                this.echo('sukunagojos github');
-                window.open('https://github.com/shreyamarya', '_blank');
-            },          
-            coffee: function() {
-                window.open('http://razorpay.me/@shreyamarya', '_blank');
-        }}, {
-            greetings: 'Welcome to sukunagojos Portfolio. Please type help for a list of available commands.',
-            prompt: '[ sukunagojo ]# ', 
-        });
-    </script>
+    <div class="terminal-container">
+        <div id="terminal"></div>
+    </div>
+    <script>
+        function typeEffect(term, message, speed, callback) {
+            let index = 0;
+            let interval = setInterval(function() {
+                term.echo(message.charAt(index), { newline: false });
+                index++;
+                if (index >= message.length) {
+                    clearInterval(interval);
+                    term.echo(''); // To move to the next line
+                    if (callback) callback();
+                }
+            }, speed);
+        }
+
+        function showGreeting(term) {
+            typeEffect(term, 'Welcome to sukunagojos Portfolio. Please type help for a list of available commands.', 50);
+        }
+
+        // Command mapping object for easier management
+        const commands = {
+            'hello': function(term) {
+                typeEffect(term, 'Hello! Welcome to sukunagojos Portfolio.', 50);
+            },
+            'help': function(term) {
+                const helpText = [
+                    'Available commands:',
+                    '  - help: Shows this help message.',
+                    '  - whoami: About me',
+                    '  - youtube (yt): My YouTube Channel',
+                    '  - discord (dc): My Discord Server',
+                    '  - x: My Twitter account',
+                    '  - github (gh): Github',
+                    '  - coffee: Buy me a Coffee',
+                    '  - exit: Reset the terminal'
+                ].join('\n');
+                typeEffect(term, helpText, 50);
+            },
+            'whoami': function(term) {
+                typeEffect(term, 'Hi, I am sukunagojos aka shreyam. I am a #EthicalHacker, struggling daily to become a good hacker. That is all about me!', 50);
+            },
+            'youtube': function(term) {
+                typeEffect(term, 'Opening sukunagojos YouTube Channel...', 50, function() {
+                    window.open('https://youtube.com/@shreyamarya3452', '_blank');
+                });
+            },
+            'yt': function(term) {
+                commands.youtube(term); // Alias for youtube
+            },
+            'discord': function(term) {
+                typeEffect(term, 'Opening sukunagojos Discord Server...', 50, function() {
+                    window.open('https://discord.com/invite/WjRK9SKk', '_blank');
+                });
+            },
+            'dc': function(term) {
+                commands.discord(term); // Alias for discord
+            },
+            'x': function(term) {
+                typeEffect(term, 'Opening sukunagojos X account...', 50, function() {
+                    window.open('https://x.com/Shreyam35710703', '_blank');
+                });
+            },
+            'github': function(term) {
+                typeEffect(term, 'Opening sukunagojos GitHub...', 50, function() {
+                    window.open('https://github.com/shreyamarya', '_blank');
+                });
+            },
+            'gh': function(term) {
+                commands.github(term); // Alias for github
+            },
+            'coffee': function(term) {
+                typeEffect(term, 'Redirecting to Buy Me a Coffee...', 50, function() {
+                    window.open('http://razorpay.me/@shreyamarya', '_blank');
+                });
+            },
+            'exit': function(term) {
+                term.clear();
+                showGreeting(term);
+            }
+        };
+
+        $('#terminal').terminal(function(command, term) {
+            var cmd = command.toLowerCase().trim();  // Normalize and trim command
+            if (commands[cmd]) {
+                commands[cmd](term);  // Call the corresponding command function
+            } else {
+                term.echo(`Unknown command: "${command}". Type 'help' for a list of available commands.`);
+            }
+        }, {
+            greetings: false, // Disable default greeting
+            prompt: '[ sukunagojo ]# ',
+            onInit: function(term) {
+                showGreeting(term);  // Show the greeting with typing effect on initialization
+            }
+        });
+    </script>
 </body>
 </html>
