@@ -1,24 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shreyam-hacks.linkpc.net</title>
-    <link rel="stylesheet" href="style.css">
+    <title>sukunagojo</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.lolcat.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
+<!--     <link rel="stylesheet" href="style.css"/> -->
+ <style>
+    .terminal {
+    font-family: monospace;
+    font-size: 18px;
+    color: #fff;
+    background-color: #000;
+    padding: 20px;
+    /* border: 1px solid #333; */
+
+  }
+  .terminal-container {
+    width: 60%;
+    max-width: 800px;
+    border: 2px solid #fff;
+    padding: 0px;
+    background-color: #000;
+}
+  .prompt {
+    color: #ff0000;
+  }
+  
+  .output {
+    color: #ffffff;
+  }
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+  }
+ </style>
 </head>
 <body>
-    <div id="ascii-rain"></div>
-    <div class="content">
-        <h1>Ethical Hacking Introduction</h1>
-        <p>Ethical hacking, also known as white-hat hacking, is a practice of intentionally attempting to penetrate a computer system or network to identify vulnerabilities and weaknesses. Unlike malicious hackers, ethical hackers have permission from the system owners to conduct their activities with the goal of improving security.</p>
-        <p>Ethical hackers use various techniques and tools to simulate real-world attacks and assess the system's resilience. This information is then used to strengthen security measures and prevent unauthorized access.</p>
-        <p>Some common areas of ethical hacking include:</p>
-        <ul>
-            <li>Network penetration testing</li>
-            <li>Web application security testing</li>
-            <li>Social engineering assessments</li>
-            <li>Wireless network auditing</li>
-        </ul>
-    </div>
-    <script src="script.js"></script> </body>
+    <div class="terminal-container">
+        <div id="terminal"></div>
+    </div>
+    <script>
+        $('#terminal').terminal({
+            hello: function(what) {
+                this.echo('Hello, ' + what + '. Welcome to sukunagojos Portfolio.');
+            },
+            help: function() {
+                this.echo('Available commands:');
+                this.echo('  - help: Shows this help message.');
+                this.echo('  - whoami: About me');
+                this.echo('  - youtube: My Youtube Channel');
+                this.echo('  - discord: My Discord Server');
+                this.echo('  - x: My Twitter account');
+                this.echo('  - github: Github');
+                this.echo('  - coffee: Buy me a Coffee');
+            },
+            whoami: function() {
+                this.echo('Hi, I am sukunagojos aka shreyam. I am a #EthicalHacker, struggling daily to become a good hacker. That is all about me!');
+            },
+            youtube: function() {
+                this.echo('sukunagojos Youtube Channel');
+                window.open('https://youtube.com/@shreyamarya3452', '_blank');
+            },
+            discord: function() {
+                this.echo('sukunagojos Discord Server');
+                window.open('https://discord.com/invite/WjRK9SKk', '_blank');
+            },          
+            x: function() {
+                this.echo('sukunagojos X account');
+                window.open('https://x.com/Shreyam35710703', '_blank');
+            },
+            github: function() {
+                this.echo('sukunagojos github');
+                window.open('https://github.com/shreyamarya', '_blank');
+            },          
+            coffee: function() {
+                window.open('http://razorpay.me/@shreyamarya', '_blank');
+        }}, {
+            greetings: 'Welcome to sukunagojos Portfolio. Please type help for a list of available commands.',
+            prompt: '[ sukunagojo ]# ', 
+        });
+    </script>
+</body>
 </html>
